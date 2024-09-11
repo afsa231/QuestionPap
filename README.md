@@ -1,2 +1,4 @@
 # QuestionPap
 My Question Paper Project
+I developed a project focused on automating the generation of question papers. The system allows for the creation of subject-specific data and collections, enabling the preparation of customized question papers tailored to specific requirements. By leveraging this solution, users can efficiently generate question papers based on predefined criteria, ensuring that the generated content meets educational standards and requirements.
+I developed a project utilizing Python Flask and MongoDB to automate the generation of question papers. The system is designed to handle subject-specific data and collections, allowing for the preparation of customized question papers tailored to specific requirements. By leveraging Flask for the backend and MongoDB for data management, users can efficiently generate question papers based on predefined criteria, ensuring that the content aligns with educational standards and requirements.
