@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Bootstrap Project</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&family=Edu+NSW+ACT+Foundation:wght@400;500;600;700&family=Lavishly+Yours&family=Rubik+Iso&display=swap"
+        rel="stylesheet">
+</head>
+
+<style>
+    /* .forms {
+        display: flex;
+        align-items: center;
+    } */
+    * {
+        font-size: large;
+        font-family: 'Comfortaa', cursive;
+    }
+
+    hr {
+        border: 1px solid rgb(85, 80, 80);
+        margin-top: 50px;
+    }
+
+    textarea,
+    input {
+        margin: 7px;
+        height: 45px;
+        border-radius: 5px;
+        border: 2px solid black;
+        padding: 3px;
+        padding-left: 10px;
+    }
+
+    .forming {
+        margin: 20px;
+        margin-left: 7px;
+    }
+
+    select {
+        border: 2px solid black;
+        border-radius: 5px;
+        height: 45px;
+    }
+
+    .btn-insert-data {
+        background-color: #2eb8d6;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .center-button {
+        display: flex;
+        justify-content: center;
+    }
+
+    .btn-insert-data:hover {
+        background-color: #1bdece;
+    }
+
+    label {
+        color: black;
+    }
+
+    body {
+        background-color: whitesmoke;
+        /*background-image: url("black.jpg");*/
+        background-size: cover;
+        /* This will make the image cover the entire background */
+        background-repeat: no-repeat;
+        /* This will prevent the image from repeating */
+    }
+
+    .textbox-container {
+        display: grid;
+        grid-template-columns: repeat(4, auto);
+        gap: 5px;
+        margin: 7px;
+    }
+
+    .textbox {
+        border: 2px solid gainsboro;
+        padding: 10px;
+        /* width: auto; */
+        box-sizing: border-box;
+        border-radius: 5px;
+    }
+
+    .form-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow-y: auto;
+    }
+
+    form {
+        padding: 10px;
+        width: fit-content;
+        background-color: #fff;
+        position: relative;
+    }
+
+
+
+    select option:hover {
+        background-color: #2eb8d6;
+    }
+</style>
+
+<body>
+
+
+    
+    <marquee>
+        <h2 style="color: #19e5db;">YOUR PAPER HERE {{owner}}</h2>
+    </marquee>
+    <!-- <div class="col-sm-2"></div> -->
+    <!-- <div class="container"> -->
+    <div class="container">
+        <!-- <div class="form-container"> -->
+        <form action="/insertqp" method="post"
+            style="border: .2px solid white;border-radius: 20px;padding: 20px;z-index: 1;box-shadow: 20px 20px 10px gray; ">
+            <div class="form-group">
+                <!-- <label>Enter your collage name here</label> <br/> -->
+                <textarea rows="1" cols="100" name="col" placeholder="Enter collage name"></textarea>
+            </div>
+            <div class="form-group">
+                <!-- <label>Prepare your paper here</label> <br/> -->
+                <textarea rows="1" cols="100" name="exam" placeholder="Type of examination"></textarea>
+            </div>
+            <div class="form-group">
+                <!-- <label>Prepare your paper here</label> <br/> -->
+                <textarea rows="4" cols="100" name="any" placeholder="Optional for you"></textarea>
+            </div>
+            <div class="forms">
+                <label>Subjectname:</label>
+                <br>
+                <textarea rows="1" cols="50" name="sub" placeholder="Subject Name"></textarea>
+            </div>
+            <div class="forms">
+                <label>Time:</label>
+                <br>
+                <textarea rows="1" cols="50" name="tim" placeholder="Time"></textarea>
+            </div>
+            <div class="form">
+                <label>Date :</label>
+                <br>
+                <input type="date" name="dat">
+            </div>
+            <div class="form">
+                <label>Marks :</label>
+                <br>
+                <input type="number" name="marks" step="10" placeholder="Marks">
+            </div>
+
+            <div class="form-group">
+                <label>Prepare your questions</label> <br />
+                <textarea rows="5" cols="100" name="pap" placeholder="write your question here"></textarea>
+            </div>
+            <div class="textbox-container">
+                <div class="textbox">
+                    <label for="marks">Marks:</label>
+                    <input type="text" id="marks" name="mark" placeholder="Enter marks">
+                </div>
+                <div class="textbox">
+                    <label for="unit">Unit:</label>
+                    <input type="text" id="unit" name="unit" placeholder="Enter unit">
+                </div>
+                <div class="textbox">
+                    <!-- check -->
+                    <!-- <label for="optional1">Optional 1:</label> -->
+                    <input type="text" id="optional1" name="opth1" placeholder="Enter heading">
+                    <input type="text" id="optional1" name="opt1" placeholder="Enter optional 1">
+                </div>
+                <div class="textbox">
+                    <!-- <label for="optional2">Optional 2:</label> -->
+                    <input type="text" id="optional1" name="opth2" placeholder="Enter heading">
+                    <input type="text" id="optional2" name="opt2" placeholder="Enter optional 2">
+                </div>
+            </div>
+            <hr>
+            <div class="forming">
+                <!-- <label for="question-type">Select Question Type:</label> -->
+                <select id="question-type" name="ques">
+                    <option value="">Select Question Type (Optional)</option>
+                    <option value="or">or</option>
+                    <option value="and">and</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <!-- <label>Prepare your questions</label> <br/> -->
+                <textarea rows="5" cols="100" name="pap1" placeholder="write your question here"></textarea>
+            </div>
+            <div class="textbox-container">
+                <div class="textbox">
+                    <label for="marks">Marks:</label>
+                    <input type="text" id="marks" name="mar" placeholder="Enter marks">
+                </div>
+                <div class="textbox">
+                    <label for="unit">Unit:</label>
+                    <input type="text" id="unit" name="uni" placeholder="Enter unit">
+                </div>
+                <div class="textbox">
+                    <!-- <label for="optional1">Optional 1:</label> -->
+                    <input type="text" id="optional1" name="optih1" placeholder="Enter heading">
+                    <input type="text" id="optional1" name="opti1" placeholder="Enter optional 1">
+                </div>
+                <div class="textbox">
+                    <!-- <label for="optional2">Optional 2:</label> -->
+                    <input type="text" id="optional1" name="optih2" placeholder="Enter heading">
+                    <input type="text" id="optional2" name="opti2" placeholder="Enter optional 2">
+                </div>
+            </div>
+            <hr>
+            <div class="forming">
+                <!-- <label for="question-type">Select Question Type:</label> -->
+                <select id="question-type" name="quest">
+                    <option value="">Select Question Type (Optional)</option>
+                    <option value="or">or</option>
+                    <option value="and">and</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <!-- <label>Prepare your questions</label> <br/> -->
+                <textarea rows="5" cols="100" name="pap2" placeholder="write your question here"></textarea>
+            </div>
+            <div class="textbox-container">
+                <div class="textbox">
+                    <label for="marks">Marks:</label>
+                    <input type="text" id="marks" name="ma" placeholder="Enter marks">
+                </div>
+                <div class="textbox">
+                    <label for="unit">Unit:</label>
+                    <input type="text" id="unit" name="un" placeholder="Enter unit">
+                </div>
+                <div class="textbox">
+                    <!-- <label for="optional1">Optional 1:</label> -->
+                    <input type="text" id="optional1" name="optioh1" placeholder="Enter heading">
+                    <input type="text" id="optional1" name="optio1" placeholder="Enter optional 1">
+                </div>
+                <div class="textbox">
+                    <!-- <label for="optional2">Optional 2:</label> -->
+                    <input type="text" id="optional1" name="optioh2" placeholder="Enter heading">
+                    <input type="text" id="optional2" name="optio2" placeholder="Enter optional 2">
+                </div>
+            </div>
+            <hr>
+            <div class="forming">
+
+                <!-- <label for="question-type">Select Question Type:</label> -->
+                <select id="question-type" name="questi">
+                    <option value="">Select Question Type (Optional)</option>
+                    <option value="or">or</option>
+                    <option value="and">and</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <!-- <label>Prepare your questions</label> <br/> -->
+                <textarea rows="5" cols="100" name="paper" placeholder="write your question here"></textarea>
+            </div>
+            <div class="textbox-container">
+                <div class="textbox">
+                    <label for="marks">Marks:</label>
+                    <input type="text" id="marks" name="m" placeholder="Enter marks">
+                </div>
+                <div class="textbox">
+                    <label for="unit">Unit:</label>
+                    <input type="text" id="unit" name="u" placeholder="Enter unit">
+                </div>
+                <div class="textbox">
+                    <!-- <label for="optional1">Optional 1:</label> -->
+                    <input type="text" id="optional1" name="optionh1" placeholder="Enter heading">
+                    <input type="text" id="optional1" name="option1" placeholder="Enter optional 1">
+                </div>
+                <div class="textbox">
+                    <!-- <label for="optional2">Optional 2:</label> -->
+                    <input type="text" id="optional2" name="optionh2" placeholder="Enter heading">
+                    <input type="text" id="optional2" name="option2" placeholder="Enter optional 2">
+                </div>
+            </div>
+            <hr>
+            <div class="forming">
+                <!-- <label for="question-type">Select Question Type:</label> -->
+                <select id="question-type" name="questio">
+                    <option value="">Select Question Type (Optional)</option>
+                    <option value="or">or</option>
+                    <option value="and">and</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <!-- <label>Prepare your questions</label> <br/> -->
+                <textarea rows="5" cols="100" name="papp" placeholder="write your question here"></textarea>
+            </div>
+            <div class="textbox-container">
+                <div class="textbox">
+                    <label for="marks">Marks:</label>
+                    <input type="text" id="marks" name="marcus" placeholder="Enter marks">
+                </div>
+                <div class="textbox">
+                    <label for="unit">Unit:</label>
+                    <input type="text" id="unit" name="unitt" placeholder="Enter unit">
+                </div>
+                <div class="textbox">
+                    <!-- <label for="optional1">Optional 1:</label> -->
+                    <input type="text" id="optional1" name="optionah1" placeholder="Enter heading">
+                    <input type="text" id="optional1" name="optiona1" placeholder="Enter optional 1">
+                </div>
+                <div class="textbox">
+                    <!-- <label for="optional2">Optional 2:</label> -->
+                    <input type="text" id="optional2" name="optionah2" placeholder="Enter heading">
+                    <input type="text" id="optional2" name="optiona2" placeholder="Enter optional 2">
+                </div>
+            </div>
+            <hr>
+            <div class="forming">
+                <!-- <label for="question-type">Select Question Type:</label> -->
+                <select id="question-type" name="question">
+                    <option value="">Select Question Type (Optional)</option>
+                    <option value="or">or</option>
+                    <option value="and">and</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <!-- <label>Prepare your questions</label> <br/> -->
+                <textarea rows="5" cols="100" name="qp" placeholder="write your question here"></textarea>
+            </div>
+            <div class="textbox-container">
+                <div class="textbox">
+                    <label for="marks">Marks:</label>
+                    <input type="text" id="marks" name="marku" placeholder="Enter marks">
+                </div>
+                <div class="textbox">
+                    <label for="unit">Unit:</label>
+                    <input type="text" id="unit" name="uniti" placeholder="Enter unit">
+                </div>
+                <div class="textbox">
+                    <!-- <label for="optional1">Optional 1:</label> -->
+                    <input type="text" id="optional1" name="optionalh1" placeholder="Enter heading">
+                    <input type="text" id="optional1" name="optional1" placeholder="Enter optional 1">
+                </div>
+                <div class="textbox">
+                    <!-- <label for="optional2">Optional 2:</label> -->
+                    <input type="text" id="optional2" name="optionalh2" placeholder="Enter heading">
+                    <input type="text" id="optional2" name="optional2" placeholder="Enter optional 2">
+                </div>
+            </div>
+            <br>
+            <div class="center-button">
+                <button type="submit" class="btn-insert-data">Insert data</button>
+            </div>
+        </form>
+        <span style="color: white;">{{resu}}</span>
+    </div>
+
+    <div class="col-sm-4"></div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+<div style="margin-bottom: 50px;">
+    <center>
+        <button class="btn-insert-data"><a href="/view" style="text-decoration: none;color: white;">view
+                here</a></button>
+    </center>
+</div>
+
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="style2.css"> -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style2.css') }}">
+</head>
+<body>
+    
+     <section class="container">
+        <div class="card">
+            <div class="card-image car-1"> </div>
+                <h2>Simple</h2>
+                <p>Paper is having two sections.</p>
+                <a href="/pap1">Begin</a>
+        </div>
+        <div class="card">
+            <div class="card-image car-2"> </div>
+                <h2>MID</h2>
+                <p>Generate your paper </p>
+                <a href="/pap2">Begin</a>
+        </div>
+        <div class="card">
+            <div class="card-image car-3"> </div>
+                <h2>Complex </h2>
+                <p>Prepare a high level paper </p>
+                <a href="/pap3">Begin</a>
+        </div>
+        
+     </section>           
+</body>
+</html>

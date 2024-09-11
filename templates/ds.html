@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Created Successfully</title>
+</head>
+<body>
+
+    <div>
+        <h1>Database Created Successfully</h1>
+        
+        <p>The database "{{ db_name }}" has been created successfully.</p>
+        
+        <!-- Add a link to navigate back to the main page -->
+        <a href="{{ url_for('homePage') }}">Back to Home</a>
+    </div>
+
+</body>
+</html>

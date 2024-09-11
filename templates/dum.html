@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUBJECTS</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        #heading {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        #databaseList {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            align-items: stretch; /* Adjusted for equal height cards */
+        }
+
+        .card {
+            flex: 0 0 calc(50% - 10px);
+            box-sizing: border-box;
+            transition: background-color 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .card:hover {
+            background-color: #f2f2f2;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            margin-bottom: 15px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .collections-list {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .collections-item {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        #createContainer {
+            margin-top: 20px;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+        }
+
+        /* Add the dark navbar style */
+        .navbar-dark.bg-dark {
+            background-color: #343a40 !important;
+        }
+    </style>
+
+</head>
+<body>
+
+<!-- Navbar with dark background -->
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Subject App</a>
+        <!-- Add your other navbar content here -->
+    </div>
+</nav>
+
+<h1 id="heading">SUBJECTS</h1>
+
+<div id="databaseList">
+    <!-- Display the list of databases here -->
+</div>
+
+<script>
+    // Initial load of databases
+    fetchDatabases();
+
+    function fetchDatabases() {
+        // Make an AJAX request to the server to get the list of databases
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "/get_databases", true);
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    var databaseList = JSON.parse(xhr.responseText);
+                    displayDatabaseList(databaseList);
+                } else {
+                    console.error("Error fetching databases.");
+                }
+            }
+        };
+
+        xhr.send();
+    }
+
+    function displayDatabaseList(databaseList) {
+        var databaseListDiv = document.getElementById("databaseList");
+        databaseListDiv.innerHTML = "";  // Clear previous content
+
+        // Iterate through the list and create card elements
+        databaseList.forEach(function (database) {
+            var card = document.createElement("div");
+            card.className = "card";
+
+            var cardBody = document.createElement("div");
+            cardBody.className = "card-body";
+
+            var cardTitle = document.createElement("h5");
+            cardTitle.className = "card-title";
+            cardTitle.textContent = database;
+
+            var cardText = document.createElement("p");
+            cardText.className = "card-text";
+            cardText.textContent = "Loading collections...";
+
+            var addCollectionBtn = document.createElement("button");
+            addCollectionBtn.className = "btn btn-primary";
+            addCollectionBtn.textContent = "Add Category";
+            addCollectionBtn.addEventListener("click", function () {
+                addCollection(database, cardText);
+            });
+
+            // Add a space
+            var space = document.createTextNode(" ");
+
+            var removeCollectionBtn = document.createElement("button");
+            removeCollectionBtn.className = "btn btn-primary";
+            removeCollectionBtn.textContent = "Remove Category";
+            removeCollectionBtn.addEventListener("click", function () {
+                removeCollection(database, cardText);
+            });
+
+            cardBody.appendChild(cardTitle);
+            cardBody.appendChild(cardText);
+            cardBody.appendChild(addCollectionBtn);
+            cardBody.appendChild(space); // Add the space
+            cardBody.appendChild(removeCollectionBtn);
+
+            card.appendChild(cardBody);
+
+            databaseListDiv.appendChild(card);
+
+            // Fetch collections for each database
+            fetchCollections(database, cardText);
+        });
+    }
+
+    function fetchCollections(database, cardTextElement) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "/get_collections?database=" + database, true);
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    var collections = JSON.parse(xhr.responseText);
+                    updateCardText(cardTextElement, collections);
+                } else {
+                    console.error("Error fetching collections for database: " + database);
+                }
+            }
+        };
+
+        xhr.send();
+    }
+
+    function updateCardText(cardTextElement, collections) {
+        // Clear existing content
+        cardTextElement.innerHTML = "";
+
+        if (collections.length > 0) {
+            var collectionsList = document.createElement("ul");
+            collectionsList.className = "collections-list";
+
+            collections.forEach(function (collection) {
+                var collectionItem = document.createElement("li");
+                collectionItem.className = "collections-item";
+                collectionItem.textContent = collection;
+
+                collectionsList.appendChild(collectionItem);
+            });
+
+            cardTextElement.appendChild(collectionsList);
+        } else {
+            cardTextElement.textContent = "No collections found.";
+        }
+    }
+
+    function addCollection(database, cardTextElement) {
+        var newCollection = prompt("Enter the name of the new collection:");
+
+        if (newCollection !== null && newCollection.trim() !== "") {
+            // Make an AJAX request to the server to create the new collection
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/add_collection", true);  // Update the route name here
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        alert("New collection '" + newCollection + "' added to the database '" + database + "'.");
+                        // Refresh the collection list after adding a new collection
+                        fetchCollections(database, cardTextElement);
+                    } else {
+                        console.error("Error creating collection for database: " + database);
+                    }
+                }
+            };
+
+            var data = JSON.stringify({
+                "database": database,
+                "collection": newCollection
+            });
+
+            xhr.send(data);
+        } else {
+            alert("Collection name cannot be empty.");
+        }
+    }
+
+    function removeCollection(database, cardTextElement) {
+        var collectionToRemove = prompt("Enter the name of the collection to remove:");
+
+        if (collectionToRemove !== null && collectionToRemove.trim() !== "") {
+            // Make an AJAX request to the server to remove the collection
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/remove_collection", true);  // Use the appropriate route name
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        alert("Collection '" + collectionToRemove + "' removed from the database '" + database + "'.");
+                        // Refresh the collection list after removing a collection
+                        fetchCollections(database, cardTextElement);
+                    } else {
+                        console.error("Error removing collection from database: " + database);
+                    }
+                }
+            };
+
+            var data = JSON.stringify({
+                "database": database,
+                "collection": collectionToRemove
+            });
+
+            xhr.send(data);
+        } else {
+            alert("Collection name cannot be empty.");
+        }
+    }
+</script>
+
+<!-- Include Bootstrap JS and Popper.js -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>

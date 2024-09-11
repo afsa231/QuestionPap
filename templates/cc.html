@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Collection</title>
+</head>
+<body>
+
+    <div>
+        <h1>Create Collection in {{ db_name }}</h1>
+        
+        <div id="createContainer">
+            <input type="text" id="collectionNameInput" placeholder="Enter Collection Name">
+            <button id="createCollectionButton" onclick="createCollection()">Create Collection</button>
+            
+            <!-- Display error or success messages here -->
+            <p id="collectionErrorMessage" style="color: red;"></p>
+            <p id="collectionSuccessMessage" style="color: green;"></p>
+        </div>
+    </div>
+
+    <script>
+        function createCollection() {
+            var collectionNameInput = document.getElementById("collectionNameInput");
+            var collectionName = collectionNameInput.value;
+
+            // Make sure the collection name is not empty
+            if (collectionName.trim() !== "") {
+                // Send an AJAX request to the server to create the collection
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/create_collection", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            var response = JSON.parse(xhr.responseText);
+                            if (response.err) {
+                                document.getElementById("collectionErrorMessage").innerText = response.err;
+                            } else {
+                                document.getElementById("collectionSuccessMessage").innerText = response.success;
+                            }
+                        } else {
+                            document.getElementById("collectionErrorMessage").innerText = "Error creating collection.";
+                        }
+                    }
+                };
+
+                var data = "db_name=" + encodeURIComponent("{{ db_name }}") + "&collection_name=" + encodeURIComponent(collectionName);
+                xhr.send(data);
+            } else {
+                document.getElementById("collectionErrorMessage").innerText = "Please enter a valid collection name.";
+            }
+        }
+    </script>
+</body>
+</html>

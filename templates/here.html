@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Display</title>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .table-box {
+            margin: 50px auto;
+        }
+
+        .table-row {
+            display: table;
+            width: 80%;
+            margin: 10px auto;
+            font-family: sans-serif;
+            background: transparent;
+            padding: 12px 0;
+            color: #555;
+            font-size: 13px;
+            box-shadow: 0 1px 4px 0 rgba(0, 0, 50, 0.3);
+        }
+
+        .table-cell {
+            display: table-cell;
+            width: 30%;
+            text-align: center;
+            padding: 4px 0;
+            border-right: 1px solid #d6d4d4;
+            vertical-align: middle;
+        }
+
+        .table-head {
+            background: #8665f7;
+            box-shadow: none;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .table-head .table-cell {
+            border-right: none;
+        }
+
+        .last-cell {
+            border-right: none;
+        }
+
+        .first-cell {
+            text-align: left;
+            padding-left: 10px;
+        }
+
+        ion-icon {
+            font-size: 36px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .edit-form {
+            display: none;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="table-box">
+        <h2 style="text-align:center">Subject: {{ database }}, Category: {{ collection }}</h2>
+        {% for item in data %}
+        <div class="table-row" id="row_{{ loop.index }}">
+            <div class="table-cell first-cell">
+                <p style="font-size: 16px; color: black;">{{ item.data }}</p>
+            </div>
+            <div class="table-cell">
+                <ion-icon name="trash-outline"
+                    onclick="removeItem('{{ database }}', '{{ collection }}', '{{ item._id|string }}')"></ion-icon>
+                
+            </div>
+            <div class="table-cell last-cell">
+                <ion-icon name="document-text-outline"
+                    onclick="showEditForm('{{ item._id|string }}', '{{ item.data }}')"></ion-icon>
+                
+            </div>
+        </div>
+        {% endfor %}
+
+        <div class="edit-form" id="editForm" style="display: none;">
+            <div class="mb-3">
+                <label for="editData" class="form-label">Edit Data</label>
+              <center>  <textarea class="form-control" id="editData" rows="3" style="width: 50%;" placeholder="Enter your text here"></textarea></center>
+            </div>
+            <button class="btn btn-primary" onclick="updateItem('{{ database }}', '{{ collection }}')">Save</button>
+        </div>
+    </div>
+
+    <center>
+        <ion-icon style="align-items: center; cursor: pointer;"
+            onclick="window.history.back()" name="arrow-undo-circle-outline"></ion-icon>
+    </center>
+
+    <script>
+        function removeItem(database, collection, itemId) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/delete_data", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        console.log(response);
+
+                        if (response.success) {
+                            var deletedRow = document.getElementById('row_' + itemId);
+                            if (deletedRow) {
+                                deletedRow.remove();
+                            }
+                            alert("Item deleted successfully!");
+
+                            // Reload the page after successful deletion
+                            location.reload();
+                        } else {
+                            console.error("Error deleting item:", response.error);
+                            alert("Error deleting item. Please check the console for details.");
+                        }
+                    }
+                }
+            };
+
+            var data = {
+                "database": database,
+                "collection": collection,
+                "itemId": itemId
+            };
+
+            xhr.send(JSON.stringify(data));
+        }
+
+        function showEditForm(itemId, currentData) {
+            var editForm = document.getElementById('editForm');
+            var editDataInput = document.getElementById('editData');
+    
+            editForm.dataset.itemId = itemId;
+    
+            editDataInput.value = currentData;
+            editForm.style.display = 'block';
+        }
+    
+        function updateItem(database, collection) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/update_data", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+    
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        console.log(response);
+    
+                        if (response.success) {
+                            alert("Item updated successfully!");
+    
+                            // Reload the page after successful update
+                            location.reload();
+                        } else {
+                            console.error("Error updating item:", response.error);
+                            alert("Error updating item. Please check the console for details.");
+                        }
+                    }
+                }
+            };
+    
+            var editDataInput = document.getElementById('editData');
+            var updatedData = editDataInput.value;
+    
+            var itemId = document.getElementById('editForm').dataset.itemId;
+    
+            var data = {
+                "database": database,
+                "collection": collection,
+                "itemId": itemId,
+                "updatedData": updatedData
+            };
+    
+            xhr.send(JSON.stringify(data));
+        }
+    </script>
+</body>
+
+</html>

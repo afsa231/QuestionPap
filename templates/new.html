@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Documents</title>
+    <!-- Add your CSS or Bootstrap links here -->
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: #3b0c0c;
+        /* Set the background color to black */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    .content {
+        background-color: #fff;
+        /* Set the square background color to white */
+        padding: 100px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        width: 100%;
+        /* Optional: Add a shadow to the square */
+    }
+
+    .cln {
+        display: flex;
+        justify-content: center;
+    }
+
+    .cln h1,
+    h2 {
+        margin: 0;
+    }
+
+    .sub {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .d {
+        display: flex;
+        justify-content: end;
+        /* border: 2px solid black; */
+    }
+
+    .p p {
+        margin: 0;
+        border: 1.2px solid black;
+        padding: 5px;
+
+    }
+
+
+    .q {
+        display: flex;
+        justify-content: center;
+    }
+
+    .p {
+        border: 2px solid black;
+        display: flex;
+        border-radius: 5px;
+        padding: 5px;
+
+    }
+</style>
+
+<body>
+    <!-- <h2>Your Documents</h2> -->
+    {% for doc in documents %}
+    <div class="content">
+        <!-- <h3>Document ID: {{ doc._id }}</h3> -->
+        <div class="cln">
+            <h1> {{ doc.col }}</h1>
+        </div>
+        <div class="cln">
+            <h2> {{ doc.exam }}</h2>
+        </div>
+        <div class="sub">
+            <div>
+                <h4>{{doc.any}}</h4>
+
+                <h4>{{doc.tim}}</h4>
+            </div>
+            <h4> {{ doc.sub }}</h4>
+            <div>
+                <h4>Date: {{ doc.dat }}</h4>
+                <h4>Marks: {{ doc.marks }}</h4>
+            </div>
+        </div>
+        <hr>
+
+        <p>{{doc.pap}}</p>
+
+        <div class="d">
+            <div class="p">
+                <p>{{doc.mark}}</p>
+                <p>{{doc.unit}}</p>
+                <div class="">
+                    <p>{{doc.opth1}}</p>
+                    <p>{{doc.opt1}}</p>
+                </div>
+                <div class="">
+                    <p>{{doc.opth2}}</p>
+                    <p>{{doc.opt2}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="q">
+            <p>{{doc.ques}}</p>
+        </div>
+
+        <p>{{doc.pap1}}</p>
+        <div class="d">
+            <div class="p">
+                <p>{{doc.mar}}</p>
+                <p>{{doc.uni}}</p>
+                <div>
+                    <p>{{doc.optih1}}</p>
+                    <p>{{doc.opti1}}</p>
+                </div>
+                <div>
+                    <p>{{doc.optih2}}</p>
+                    <p>{{doc.opti2}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="q">
+            <p>{{doc.quest}}</p>
+        </div>
+        <p>{{doc.pap2}}</p>
+        <div class="d">
+            <div class="p">
+                <p>{{doc.ma}}</p>
+                <p>{{doc.un}}</p>
+                <div>
+                    <p>{{doc.optioh1}}</p>
+                    <p>{{doc.optio1}}</p>
+                </div>
+                <div>
+                    <p>{{doc.optioh2}}</p>
+                    <p>{{doc.optio2}}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="q">
+            <p>{{doc.questi}}</p>
+        </div>
+        <p>{{doc.paper}}</p>
+        <div class="d">
+            <div class="p">
+                <p>{{doc.m}}</p>
+                <p>{{doc.u}}</p>
+                <div>
+                    <p>{{doc.optionh1}}</p>
+                    <p>{{doc.option1}}</p>
+                </div>
+                <div>
+                    <p>{{doc.optionh2}}</p>
+                    <p>{{doc.option2}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="q">
+            <p>{{doc.questio}}</p>
+        </div>
+        <p>{{doc.papp}}</p>
+        <div class="d">
+            <div class="p">
+                <p>{{doc.marcus}}</p>
+                <p>{{doc.unitt}}</p>
+                <div>
+                    <p>{{doc.optionah1}}</p>
+                    <p>{{doc.optiona1}}</p>
+
+                </div>
+                <div>
+                    <p>{{doc.optionah2}}</p>
+                    <p>{{doc.optiona2}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="q">
+            <p>{{doc.question}}</p>
+        </div>
+        <p>{{doc.qp}}</p>
+        <div class="d">
+            <div class="p">
+
+                <p>{{doc.marku}}</p>
+                <p>{{doc.uniti}}</p>
+                <div>
+                    <p>{{doc.optionalh1}}</p>
+                    <p>{{doc.optional1}}</p>
+                </div>
+                <div>
+                    <p>{{doc.optionalh2}}</p>
+                    <p>{{doc.optional2}}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add more details here as needed -->
+        <a href="/view_details/{{ doc._id }}">View Details</a>
+        <hr> <!-- Add a horizontal line to separate documents -->
+    </div>
+    {% endfor %}
+</body>
+
+</html>

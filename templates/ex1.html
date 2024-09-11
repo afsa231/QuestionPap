@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <div class="hero">
+        <video autoplay loop muted plays-inline class="back-video">
+            <source src="{{ url_for('static', filename='video.mp4') }}" type="video/mp4">
+
+        </video>
+
+
+
+        <nav>
+            <img style="height: 45px; width: 45px;"
+                src="https://imgs.search.brave.com/3l5PN6fESK3oG2PDH3xTj8RKEuxXfh6ZkJC7q-bkWEI/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9jZG4u/ZHJpYmJibGUuY29t/L3VzZXJzLzYwMTY2/L3NjcmVlbnNob3Rz/LzEyMDc5NDU3L21l/ZGlhLzk3ZGYwNzM4/NjVlZWFhYjcyYzJk/ZmZjODBhZWYwMDgx/LmpwZz9yZXNpemU9/NDAweDMwMCZ2ZXJ0/aWNhbD1jZW50ZXI "
+                class="logo">
+
+            <ul>
+                <li><a href="/home">Login</a></li>
+
+            </ul>
+        </nav>
+        <div class="content">
+            <h1>Papers</h1>
+            <a href="#">Explore</a>
+        </div>
+    </div>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+
+
+</body>
+
+</html>

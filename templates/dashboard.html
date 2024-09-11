@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='new.css') }}">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        
+       
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <div class="navbar">
+            <i class="fa-solid fa-pen-clip" width="500px"></i>
+            <nav>
+                <ul> 
+                    <li><a class="active"href="\dash">Home</a></li>
+                    <li><a class="active" href="\temp">Templates</a></li>
+                    <li><a class="active" href="\allinone">Create</a></li>
+                    <li><a class="active" href="\map">Mapping</a></li>
+                    <li><a class="active" href="\loggingout">Logout</a></li>
+                    
+                </ul>
+            </nav>
+            <i class="fa-solid fa-user-secret" class="cart"></i>
+        </div>
+        <div class="content">
+            <a href=""class="btn">Buddy</a>
+            <h1>Welcome {{owner}}</h1>
+        <p>other things tatatat</p>
+        <div class="arrow-icon">
+            <img src="{{ url_for('static', filename='back-arrow.png') }}">
+            <img src="{{ url_for('static', filename='next-arrow.png') }}">
+            
+        </div>
+    </div>
+    <img src="{{ url_for('static', filename='newbook.jpg') }}" class="feature" width="300px" height="300px">
+    </div>
+</body>
+</html>
